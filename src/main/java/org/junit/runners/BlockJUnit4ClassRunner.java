@@ -397,9 +397,9 @@ public class BlockJUnit4ClassRunner extends ParentRunner<FrameworkMethod> {
         CURRENT_RULE_CONTAINER.set(ruleContainer);
         try {
             List<TestRule> testRules = getTestRules(target);
-            for (MethodRule each : rules(target)) {
-                if (!(each instanceof TestRule && testRules.contains(each))) {
-                    ruleContainer.add(each);
+            for (MethodRule methodRule : rules(target)) {
+                if (!(methodRule instanceof TestRule && testRules.contains(methodRule))) {
+                    ruleContainer.add(methodRule);
                 }
             }
             for (TestRule rule : testRules) {
@@ -416,7 +416,7 @@ public class BlockJUnit4ClassRunner extends ParentRunner<FrameworkMethod> {
      * @return a list of MethodRules that should be applied when executing this
      *         test
      */
-    protected List<MethodRule> rules(Object target) {
+    protected List<MethodRule> get(Object target) {
         RuleCollector<MethodRule> collector = new RuleCollector<MethodRule>();
         getTestClass().collectAnnotatedMethodValues(target, Rule.class, MethodRule.class,
                 collector);
